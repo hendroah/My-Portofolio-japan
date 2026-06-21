@@ -1,235 +1,998 @@
-<style>
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-body{
-  font-family:Arial,sans-serif;
-  background:#03040d;
-  color:white;
-  overflow-x:hidden;
-}
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(rgba(0,247,255,.06) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,47,139,.05) 1px,transparent 1px);
-  background-size:50px 50px;
-  z-index:-3;
-}
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 20%,#ff2f8b33,transparent 35%),
-    radial-gradient(circle at 80% 40%,#00f7ff33,transparent 35%),
-    radial-gradient(circle at center,#1521ff44,transparent 45%);
-  z-index:-2;
-}
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEND | Web3 Contributor & Artist</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#050507',
+                            darker: '#020203',
+                            pink: '#ff2a6d',
+                            cyan: '#05d9e8',
+                            purple: '#b300ff'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  padding:18px 7%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(3,4,13,.75);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #00f7ff33;
-  z-index:1000;
-}
-.logo{
-  font-size:24px;
-  letter-spacing:4px;
-  font-weight:bold;
-  color:#fff;
-  text-shadow:0 0 15px #00f7ff;
-}
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:22px;
-  font-size:14px;
-}
-nav a:hover{color:#00f7ff}
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-.hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  align-items:center;
-  gap:40px;
-  padding:120px 7% 60px;
-}
-.hero-text{
-  text-align:left;
-}
-.hero h1{
-  font-size:clamp(70px,12vw,150px);
-  letter-spacing:12px;
-  line-height:.9;
-  text-shadow:0 0 30px #00f7ff;
-}
-.hero h1 span{color:#ff2f8b}
-.badge{
-  display:inline-block;
-  margin:25px 0;
-  padding:12px 22px;
-  border:1px solid #ff2f8b;
-  color:#ff2f8b;
-  background:#ff2f8b14;
-  box-shadow:0 0 25px #ff2f8b55;
-}
-.hero p{
-  margin:0;
-  max-width:620px;
-  color:#d8d8ff;
-  line-height:1.8;
-}
-.btns{margin-top:30px}
-.btns a{
-  display:inline-block;
-  margin-right:12px;
-  padding:14px 22px;
-  border-radius:8px;
-  text-decoration:none;
-  color:white;
-  border:1px solid #00f7ff;
-  box-shadow:0 0 20px #00f7ff44;
-}
-.btns a:first-child{
-  background:linear-gradient(135deg,#00f7ff,#ff2f8b);
-  border:none;
-}
+    <style>
+        /* Custom Neon & Cyber Aesthetics */
+        body {
+            background-color: #050507;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Rajdhani', sans-serif;
+        }
 
-.profile-box{
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-.profile-frame{
-  width:330px;
-  height:430px;
-  border:1px solid #00f7ff;
-  border-radius:28px;
-  background:linear-gradient(180deg,#07162f,#11051d);
-  box-shadow:0 0 60px #00f7ff55;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-.profile-frame::before{
-  content:"HEND.SYSTEM";
-  position:absolute;
-  top:18px;
-  left:20px;
-  color:#00f7ff;
-  font-size:12px;
-  letter-spacing:2px;
-}
-.profile-frame::after{
-  content:"未来を創る";
-  position:absolute;
-  right:18px;
-  bottom:25px;
-  color:#ff2f8b;
-  writing-mode:vertical-rl;
-  letter-spacing:6px;
-}
-.profile-frame img{
-  width:230px;
-  height:230px;
-  object-fit:cover;
-  border-radius:50%;
-  border:3px solid #00f7ff;
-  box-shadow:0 0 40px #00f7ff;
-  z-index:2;
-}
+        h1, h2, h3, .nav-logo, .tab-btn {
+            font-family: 'Orbitron', sans-serif;
+        }
 
-h2{
-  color:#00f7ff;
-  text-align:center;
-  margin:70px 0 35px;
-  font-size:36px;
-  letter-spacing:5px;
-  text-shadow:0 0 20px #00f7ff;
-}
-section{padding:50px 7%}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:24px;
-}
-.card{
-  background:rgba(255,255,255,.06);
-  border:1px solid #00f7ff55;
-  border-radius:20px;
-  padding:26px;
-  box-shadow:0 0 25px #00f7ff22;
-  transition:.3s;
-}
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 35px #ff2f8b66;
-  border-color:#ff2f8b;
-}
-.card h3{color:#ff2f8b;margin-bottom:12px}
-.card p{color:#ddd;line-height:1.7}
+        /* SPA Page Transition */
+        .page-section {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.gallery img{
-  width:100%;
-  height:280px;
-  object-fit:cover;
-  border-radius:18px;
-  border:1px solid #00f7ff66;
-  transition:.3s;
-}
-.gallery img:hover{
-  transform:scale(1.04);
-  box-shadow:0 0 35px #00f7ff;
-}
-.contact a{
-  display:block;
-  color:white;
-  text-decoration:none;
-  border:1px solid #00f7ff55;
-  padding:15px;
-  margin:12px 0;
-  border-radius:12px;
-}
-.sakura{
-  position:fixed;
-  top:-20px;
-  color:#ff9ccc;
-  animation:fall linear infinite;
-  z-index:10;
-  opacity:.75;
-  pointer-events:none;
-}
-@keyframes fall{
-  to{transform:translateY(110vh) translateX(80px) rotate(360deg)}
-}
-footer{text-align:center;padding:30px;color:#aaa}
+        /* Glassmorphism */
+        .glass-nav {
+            background: rgba(5, 5, 7, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(5, 217, 232, 0.1);
+        }
 
-@media(max-width:800px){
-  nav{padding:15px 5%}
-  nav div:last-child{display:none}
-  .hero{
-    grid-template-columns:1fr;
-    text-align:center;
-    padding-top:100px;
-  }
-  .hero-text{text-align:center}
-  .hero p{margin:auto}
-  .profile-frame{
-    width:280px;
-    height:360px;
-  }
-}
-</style>
+        .glass-card, .glass-panel {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Neon Text Glows */
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(5, 217, 232, 0.5), 0 0 20px rgba(5, 217, 232, 0.3);
+        }
+        .text-glow-pink {
+            text-shadow: 0 0 10px rgba(255, 42, 109, 0.5), 0 0 20px rgba(255, 42, 109, 0.3);
+        }
+
+        /* Cyber Profile Flicker Animation */
+        @keyframes cyberFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                filter: contrast(1.1) brightness(0.9);
+            }
+            20%, 22%, 24%, 55% {
+                opacity: 0.3;
+                filter: contrast(1.5) brightness(0.3) hue-rotate(15deg);
+            }
+        }
+        .cyber-image-flicker {
+            animation: cyberFlicker 7s infinite;
+        }
+
+        /* Background Cyber Grid */
+        .cyber-grid {
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 42, 109, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(600px) rotateX(60deg);
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(600px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(600px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Glowing Cyber Frame */
+        .cyber-frame-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cyber-frame {
+            position: relative;
+            clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+            background: #111;
+            padding: 4px;
+            animation: frameBreathe 4s ease-in-out infinite alternate;
+        }
+
+        .cyber-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, #05d9e8, #ff2a6d, #b300ff);
+            z-index: -1;
+            clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+            animation: borderGlow 3s linear infinite;
+        }
+
+        .cyber-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+        }
+
+        @keyframes frameBreathe {
+            0% { filter: drop-shadow(0 0 15px rgba(5, 217, 232, 0.4)); }
+            100% { filter: drop-shadow(0 0 25px rgba(255, 42, 109, 0.6)); }
+        }
+
+        /* Glitch Animation */
+        .animate-glitch {
+            position: relative;
+        }
+        .animate-glitch::before,
+        .animate-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .animate-glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff2a6d;
+            clip-path: inset(20% 0 80% 0);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        .animate-glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #05d9e8;
+            clip-path: inset(80% 0 20% 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip-path: inset(20% 0 80% 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(40% 0 50% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(10% 0 70% 0); }
+            100% { clip-path: inset(30% 0 50% 0); }
+        }
+
+        /* General Glitch Keyframes for inline styles */
+        @keyframes glitch {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 2px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, -2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 2px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 2px); }
+            100% { clip-path: inset(30% 0 50% 0); transform: translate(2px, -2px); }
+        }
+
+        /* HUD Elements */
+        .hud-line {
+            position: absolute;
+            background: #05d9e8;
+            box-shadow: 0 0 5px #05d9e8;
+            z-index: 12;
+        }
+        .hud-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ff2a6d;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff2a6d;
+            z-index: 12;
+        }
+
+        /* Japanese Vertical Text */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            opacity: 0.7;
+        }
+
+        /* Buttons */
+        .btn-cyber-primary {
+            position: relative;
+            background: transparent;
+            color: #05d9e8;
+            border: 1px solid #05d9e8;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(5, 217, 232, 0.2) inset, 0 0 10px rgba(5, 217, 232, 0.2);
+        }
+        .btn-cyber-primary:hover {
+            background: rgba(5, 217, 232, 0.1);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.5) inset, 0 0 20px rgba(5, 217, 232, 0.5);
+            text-shadow: 0 0 5px #fff;
+        }
+        .btn-cyber-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(5, 217, 232, 0.4), transparent);
+            transition: all 0.4s ease;
+        }
+        .btn-cyber-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-cyber-secondary {
+            position: relative;
+            background: transparent;
+            color: #ff2a6d;
+            border: 1px solid #ff2a6d;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .btn-cyber-secondary:hover {
+            background: rgba(255, 42, 109, 0.1);
+            box-shadow: 0 0 15px rgba(255, 42, 109, 0.4) inset;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050507; }
+        ::-webkit-scrollbar-thumb { background: #05d9e8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff2a6d; }
+
+        /* Card Hover Animations */
+        .premium-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .premium-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        .premium-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .premium-card:hover::after {
+            border-color: #05d9e8;
+            box-shadow: inset 0 0 20px rgba(5, 217, 232, 0.2);
+        }
+        .premium-card .card-icon {
+            transition: all 0.4s ease;
+        }
+        .premium-card:hover .card-icon {
+            color: #ff2a6d;
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(255, 42, 109, 0.6));
+        }
+
+        /* Gallery Masonry & Image Handling */
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+        .gallery-img {
+            transition: all 0.4s ease;
+            cursor: zoom-in;
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .gallery-img:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0 0 15px rgba(5, 217, 232, 0.4));
+        }
+        .tab-btn.active {
+            background: rgba(5, 217, 232, 0.2);
+            color: #05d9e8;
+            border-color: #05d9e8;
+            box-shadow: 0 0 15px rgba(5, 217, 232, 0.3);
+        }
+
+        /* Lightbox (Zoom Feature) */
+        #lightbox {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .lightbox-open {
+            overflow: hidden; /* Prevent scrolling when lightbox is open */
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Ambient Glows */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Utilities */
+        .z-content { z-index: 20; position: relative; }
+        .parallax-element { transition: transform 0.1s ease-out; }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyber-pink selection:text-white relative">
+
+    <!-- Interactive Background Canvas (Particles + Shuriken) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Ambient Background Glows -->
+    <div class="ambient-glow bg-cyber-pink w-96 h-96 top-[-10%] left-[-10%]"></div>
+    <div class="ambient-glow bg-cyber-cyan w-[500px] h-[500px] bottom-10 right-[-10%] opacity-20"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 cursor-pointer relative flex items-center group">
+                    <a href="#home" class="nav-logo text-2xl md:text-3xl font-black tracking-wider text-white text-glow-cyan transition-all duration-300 animate-glitch" data-text="MY PORTOFOLIO">
+                        MY PORTOFOLIO
+                    </a>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyber-cyan transition-all group-hover:w-full duration-300 z-10"></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 text-sm uppercase tracking-widest font-semibold">
+                        <a href="#home" class="nav-link text-gray-400 hover:text-cyber-cyan hover:text-glow-cyan transition-colors duration-300">Home</a>
+                        <a href="#album" class="nav-link text-gray-400 hover:text-cyber-pink hover:text-glow-pink transition-colors duration-300">Album</a>
+                        <a href="#web3" class="nav-link text-gray-400 hover:text-cyber-pink hover:text-glow-pink transition-colors duration-300">Web3</a>
+                        <a href="#trading" class="nav-link text-gray-400 hover:text-cyber-cyan hover:text-glow-cyan transition-colors duration-300">Trading</a>
+                        <a href="#contact" class="nav-link px-4 py-2 border border-cyber-cyan/50 text-cyber-cyan hover:bg-cyber-cyan/10 rounded-sm transition-all duration-300">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div class="md:hidden hidden bg-cyber-darker/95 backdrop-blur-xl border-b border-cyber-cyan/20 absolute w-full" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-2 sm:px-3 text-center uppercase tracking-widest font-semibold font-orbitron">
+                <a href="#home" class="nav-link block px-3 py-3 text-gray-400 hover:text-cyber-cyan">Home</a>
+                <a href="#album" class="nav-link block px-3 py-3 text-gray-400 hover:text-cyber-pink">Album</a>
+                <a href="#web3" class="nav-link block px-3 py-3 text-gray-400 hover:text-cyber-pink">Web3</a>
+                <a href="#trading" class="nav-link block px-3 py-3 text-gray-400 hover:text-cyber-cyan">Trading</a>
+                <a href="#contact" class="nav-link block px-3 py-3 text-cyber-cyan border border-cyber-cyan/30 mx-10 mt-4 rounded-sm">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SPA Container -->
+    <div id="app-container" class="relative z-content pt-20 min-h-screen flex flex-col">
+
+        <!-- ========================================== -->
+        <!-- 1. PAGE: HOME                              -->
+        <!-- ========================================== -->
+        <section id="page-home" class="page-section flex-grow">
+            <!-- Main Hero Section -->
+            <div class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+                <!-- 3D Cyber Grid Background inside Hero -->
+                <div class="absolute inset-0 overflow-hidden z-0">
+                    <div class="cyber-grid"></div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full z-content relative pb-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+                        
+                        <!-- LEFT SIDE: Text Content -->
+                        <div class="flex flex-col space-y-6 text-center lg:text-left mt-10 lg:mt-0">
+                            <!-- Badge -->
+                            <div class="inline-flex items-center justify-center lg:justify-start space-x-2">
+                                <span class="px-4 py-1.5 rounded-sm border border-cyber-cyan/50 bg-cyber-cyan/10 text-cyber-cyan text-xs font-bold tracking-widest uppercase relative overflow-hidden group">
+                                    <span class="absolute top-0 left-0 w-1 h-full bg-cyber-cyan"></span>
+                                    <i class="ph-fill ph-hexagon mr-1"></i> Co Founder Crypto Pride Community
+                                </span>
+                            </div>
+
+                            <!-- Main Title -->
+                            <div class="space-y-1">
+                                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter text-glow-cyan relative inline-block">
+                                    HEND
+                                    <!-- Glitch Pseudo Element -->
+                                    <span class="absolute top-0 left-0 -ml-1 text-cyber-pink opacity-50 mix-blend-screen" style="clip-path: inset(10% 0 50% 0); animation: glitch 3s infinite linear alternate-reverse;">HEND</span>
+                                    <span class="absolute top-0 left-0 ml-1 text-cyber-cyan opacity-50 mix-blend-screen" style="clip-path: inset(50% 0 10% 0); animation: glitch 2s infinite linear alternate-reverse;">HEND</span>
+                                </h1>
+                            </div>
+
+                            <!-- Subtitle -->
+                            <h2 class="text-xl sm:text-2xl text-gray-300 font-medium tracking-wide leading-relaxed">
+                                <span class="text-cyber-pink block sm:inline">Web3 Contributor</span> <span class="hidden sm:inline mx-2 text-gray-600">•</span> 
+                                <span class="block sm:inline">Artist</span> <span class="hidden sm:inline mx-2 text-gray-600">•</span> 
+                                <span class="text-cyber-cyan block sm:inline">Researcher</span> <span class="hidden sm:inline mx-2 text-gray-600">•</span> 
+                                <span class="block sm:inline">Trader</span>
+                            </h2>
+
+                            <!-- Intro Text -->
+                            <p class="text-gray-400 text-lg max-w-xl leading-relaxed mx-auto lg:mx-0">
+                                Bridging the gap between creative art and decentralized finance. Navigating the neon-lit streets of the blockchain, analyzing market data, and crafting digital legacies in the Web3 ecosystem.
+                            </p>
+
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                                <a href="#album" class="nav-link btn-cyber-primary px-8 py-3.5 w-full sm:w-auto text-center font-bold text-sm tracking-widest">
+                                    <i class="ph ph-image mr-2 text-lg align-middle"></i> Explore Album
+                                </a>
+                                <a href="#contact" class="nav-link btn-cyber-secondary px-8 py-3.5 w-full sm:w-auto text-center font-bold text-sm tracking-widest">
+                                    <i class="ph ph-envelope-simple mr-2 text-lg align-middle"></i> Contact Me
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT SIDE: Cyber Profile Image -->
+                        <div class="relative w-full max-w-[280px] sm:max-w-sm mx-auto lg:ml-auto">
+                            
+                            <!-- Decorative Japanese Text -->
+                            <div class="absolute -left-6 top-10 vertical-text text-cyber-cyan text-sm z-20 mix-blend-screen">
+                                ウェブスリー (WEB3)
+                            </div>
+                            <div class="absolute -right-4 bottom-20 vertical-text text-cyber-pink text-sm z-20 mix-blend-screen">
+                                サイバーアート
+                            </div>
+
+                            <!-- HUD Accents -->
+                            <div class="hud-line top-[10%] -left-4 w-12 h-[2px]"></div>
+                            <div class="hud-line top-[10%] -left-4 w-[2px] h-12"></div>
+                            <div class="hud-dot top-[10%] -left-4 -translate-x-1/2 -translate-y-1/2"></div>
+                            
+                            <div class="hud-line bottom-[15%] -right-4 w-16 h-[2px] bg-cyber-pink box-shadow-pink"></div>
+                            <div class="hud-line bottom-[15%] right-8 w-[2px] h-16 bg-cyber-pink"></div>
+                            <div class="hud-dot bottom-[15%] -right-4 -translate-x-1/2 -translate-y-1/2 bg-white"></div>
+
+                            <!-- The Cyber Frame -->
+                            <div class="cyber-frame-container aspect-[4/5] sm:aspect-square w-full">
+                                <div class="cyber-frame w-full h-full">
+                                    <!-- Image Container -->
+                                    <div class="w-full h-full relative overflow-hidden bg-cyber-dark" style="clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);">
+                                        <!-- Profile Image with Flicker Class -->
+                                        <img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/711a431b540e3dfa8b5721b9523d4dfafa2f0c0a/IMG-20260602-WA0080.jpg" 
+                                             alt="HEND Profile" 
+                                             class="cyber-image cyber-image-flicker transition-transform duration-700">
+                                        
+                                        <!-- Scanline Overlay -->
+                                        <div class="absolute inset-0 pointer-events-none" 
+                                             style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(5,217,232,0.1) 2px, rgba(5,217,232,0.1) 4px);">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Capabilities / Cards Section -->
+            <div class="relative py-24 bg-gradient-to-b from-cyber-dark to-cyber-darker">
+                <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyber-cyan to-transparent opacity-30"></div>
+                <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h3 class="text-cyber-pink text-sm font-bold tracking-widest uppercase mb-2">My Work</h3>
+                        <h2 class="text-3xl md:text-5xl font-black text-white text-glow-cyan font-orbitron uppercase">Core Directives</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <!-- Co-Founder -->
+                        <a href="#web3" class="nav-link premium-card glass-card p-8 rounded-lg group block">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-cyber-purple/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <i class="ph ph-cube-transparent text-4xl text-cyber-purple mb-4 card-icon block"></i>
+                            <h4 class="text-xl font-bold text-white font-orbitron mb-4 uppercase">Co-Founder</h4>
+                            <ul class="text-gray-400 text-sm leading-relaxed space-y-2">
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-purple mr-2"></i> CryptoPride</li>
+                            </ul>
+                        </a>
+
+                        <!-- Artist -->
+                        <a href="#album" class="nav-link premium-card glass-card p-8 rounded-lg group block">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-cyber-pink/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <i class="ph ph-paint-brush-broad text-4xl text-cyber-pink mb-4 card-icon block"></i>
+                            <h4 class="text-xl font-bold text-white font-orbitron mb-4 uppercase">Artist</h4>
+                            <ul class="text-gray-400 text-sm leading-relaxed space-y-2">
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-pink mr-2"></i> Endless</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-pink mr-2"></i> Portaldot</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-pink mr-2"></i> AIX ledger</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-pink mr-2"></i> Deepsafe</li>
+                            </ul>
+                        </a>
+
+                        <!-- Trade -->
+                        <a href="#trading" class="nav-link premium-card glass-card p-8 rounded-lg group block">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-green-500/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <i class="ph ph-trend-up text-4xl text-green-400 mb-4 card-icon block"></i>
+                            <h4 class="text-xl font-bold text-white font-orbitron mb-4 uppercase">Trade</h4>
+                            <ul class="text-gray-400 text-sm leading-relaxed space-y-2">
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-green-400 mr-2"></i> XAU</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-green-400 mr-2"></i> BTC</li>
+                            </ul>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. PAGE: ALBUM                             -->
+        <!-- ========================================== -->
+        <section id="page-album" class="page-section hidden flex-grow py-12">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-cyber-pink text-sm font-bold tracking-widest uppercase mb-2">Visual Gallery</h3>
+                    <h2 class="text-3xl md:text-5xl font-black text-white text-glow-cyan font-orbitron uppercase">Digital Art</h2>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex justify-center space-x-4 mb-12">
+                    <button class="tab-btn active px-6 py-3 border-2 border-transparent text-gray-400 font-bold tracking-wider uppercase rounded-md transition-all duration-300 hover:text-cyber-cyan hover:border-cyber-cyan/50" data-target="portaldot">
+                        Portaldot
+                    </button>
+                    <button class="tab-btn px-6 py-3 border-2 border-transparent text-gray-400 font-bold tracking-wider uppercase rounded-md transition-all duration-300 hover:text-cyber-cyan hover:border-cyber-cyan/50" data-target="random-art">
+                        Random Art
+                    </button>
+                </div>
+
+                <!-- Tab Content: Portaldot (Masonry Layout) -->
+                <div id="portaldot" class="tab-content columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6">
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Hend_20260509_184830_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul70_20260402205438.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul75_20260410162711.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul77_20260424180413.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/%E5%9F%BA%E5%9F%BA%20(1536%20x%202728%20piksel)_20260515_172344_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Portaldot_20260531_123602_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul125_20260605233218.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul137_20260613223530.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Untitled111_20260523194304.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Which%20one_20260527_085419_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/f63011b1c28aeef2eebd763af58df55e86f11bd4/Tak%20berjudul69_20260327212438.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/f63011b1c28aeef2eebd763af58df55e86f11bd4/Tak%20berjudul76_Dipulihkan_20260417212349.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/f63011b1c28aeef2eebd763af58df55e86f11bd4/Tak%20berjudul87_20260501191701.png" alt="Art" class="gallery-img rounded"></div>
+                </div>
+
+                <!-- Tab Content: Random Art (Masonry Layout) -->
+                <div id="random-art" class="tab-content hidden columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6">
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20251208_004445_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260117_004234_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260118_024858_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEN_20251130_201451_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/Teks%20paragraf%20Anda_20251117_002712_0000.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul131_20260609223500.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul96_20260509205659.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul98_20260507003540.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Untitled120_20260527125032.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/file_00000000c030720b959cecec07169a75.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul49_20260124204014.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul79_20260422210440.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul84_20260428165542.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul88_20260430231407.png" alt="Art" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel rounded-lg overflow-hidden p-2"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul91_20260502192134.png" alt="Art" class="gallery-img rounded"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. PAGE: WEB3                              -->
+        <!-- ========================================== -->
+        <section id="page-web3" class="page-section hidden flex-grow py-12">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-cyber-purple text-sm font-bold tracking-widest uppercase mb-2">Ecosystem</h3>
+                    <h2 class="text-3xl md:text-5xl font-black text-white text-glow-pink font-orbitron uppercase">Web3 Contributions</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Co-Founder Card -->
+                    <div class="glass-panel p-8 rounded-lg flex flex-col md:flex-row items-center gap-8 border-l-4 border-cyber-purple">
+                        <div class="w-32 h-32 flex-shrink-0 rounded-full border-2 border-cyber-pink overflow-hidden shadow-[0_0_20px_rgba(255,42,109,0.3)] bg-cyber-dark">
+                            <img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-japan/452240b7574b524870e33deb54b768c17da5e2ac/prd2.png" alt="CryptoPride Profile" class="w-full h-full object-cover">
+                        </div>
+                        <div class="text-center md:text-left">
+                            <div class="text-xs text-cyber-purple mb-2 font-orbitron tracking-widest">CO-FOUNDER</div>
+                            <h3 class="text-2xl font-orbitron font-bold text-white mb-2">CryptoPride</h3>
+                            <p class="text-gray-400 leading-relaxed mb-4">Building a decentralized community focused on inclusivity, innovation, and education within the blockchain space. We bridge the gap for artists and developers to collaborate securely in Web3.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- OG Contributor Card -->
+                        <div class="glass-panel p-8 rounded-lg border-l-4 border-yellow-500 hover:bg-white/5 transition-colors">
+                            <i class="ph ph-crown text-4xl text-yellow-500 mb-4 block"></i>
+                            <h3 class="text-xl font-orbitron font-bold text-white mb-4 uppercase">OG Contributor</h3>
+                            <ul class="text-gray-400 space-y-3 font-medium">
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-yellow-500 mr-3"></i> Openverse</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-yellow-500 mr-3"></i> Deepsafe</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-yellow-500 mr-3"></i> AIX Ledger</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-yellow-500 mr-3"></i> Mango</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-yellow-500 mr-3"></i> Neosoul</li>
+                            </ul>
+                        </div>
+
+                        <!-- Research Card -->
+                        <div class="glass-panel p-8 rounded-lg border-l-4 border-cyber-cyan hover:bg-white/5 transition-colors">
+                            <i class="ph ph-flask text-4xl text-cyber-cyan mb-4 block"></i>
+                            <h3 class="text-xl font-orbitron font-bold text-white mb-4 uppercase">Research</h3>
+                            <ul class="text-gray-400 space-y-3 font-medium">
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-cyan mr-3"></i> PortalDot</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-cyan mr-3"></i> AIX Ledger</li>
+                                <li class="flex items-center"><i class="ph-fill ph-caret-right text-cyber-cyan mr-3"></i> Deepsafe</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. PAGE: TRADING                           -->
+        <!-- ========================================== -->
+        <section id="page-trading" class="page-section hidden flex-grow py-12">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-green-400 text-sm font-bold tracking-widest uppercase mb-2">Market Analysis</h3>
+                    <h2 class="text-3xl md:text-5xl font-black text-white text-glow-cyan font-orbitron uppercase">Trading Journal</h2>
+                </div>
+
+                <!-- Masonry Layout for Trading Charts -->
+                <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6">
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/IMG-20260310-WA0025.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-11-00-59-30-167_com.tradingview.tradingviewapp-edit.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-09-22-58-29-917_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-16-17-30-21-149_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-21-22-02-07-663_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/lv_0_20260310171043.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/81d86e56-e38e-40fe-b152-7497a9e7e6c4.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-06-18-28-52-441_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-09-18-00-02-746_com.tradingview.tradingviewapp-edit.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-10-17-04-05-386_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/b787253c-921f-455c-af4b-0cbcbed7da9c.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/IMG-20260109-WA0004.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/IMG-20260109-WA0005.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-01-06-17-07-36-271_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-02-20-16-44-07-715_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/b1d95230b430504fc0cc80af3933ac2535dd871d/IMG_20260331_214134.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/b1d95230b430504fc0cc80af3933ac2535dd871d/Screenshot_2026-03-22-22-36-37-889_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                    <div class="masonry-item glass-panel p-2 rounded-lg"><img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/b1d95230b430504fc0cc80af3933ac2535dd871d/Screenshot_2026-04-01-00-17-55-131_com.tradingview.tradingviewapp.jpg" alt="Trading Chart" class="gallery-img rounded"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. PAGE: CONTACT                           -->
+        <!-- ========================================== -->
+        <section id="page-contact" class="page-section hidden flex-grow py-12">
+            <div class="max-w-3xl mx-auto px-6 lg:px-8 w-full">
+                <div class="text-center mb-12">
+                    <h3 class="text-cyber-cyan text-sm font-bold tracking-widest uppercase mb-2">Communication System</h3>
+                    <h2 class="text-3xl md:text-5xl font-black text-white text-glow-cyan font-orbitron uppercase">Message Transmission</h2>
+                </div>
+
+                <form class="glass-panel p-8 rounded-lg space-y-6">
+                    <div>
+                        <label class="block text-cyber-cyan font-orbitron text-sm tracking-widest mb-2">IDENTITY ID (NAME)</label>
+                        <input type="text" class="w-full bg-cyber-dark border border-white/10 text-white rounded p-3 focus:outline-none focus:border-cyber-cyan focus:ring-1 focus:ring-cyber-cyan transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-cyber-cyan font-orbitron text-sm tracking-widest mb-2">TRANSMISSION ADDRESS (EMAIL)</label>
+                        <input type="email" class="w-full bg-cyber-dark border border-white/10 text-white rounded p-3 focus:outline-none focus:border-cyber-cyan focus:ring-1 focus:ring-cyber-cyan transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-cyber-pink font-orbitron text-sm tracking-widest mb-2">MESSAGE DATA</label>
+                        <textarea rows="5" class="w-full bg-cyber-dark border border-white/10 text-white rounded p-3 focus:outline-none focus:border-cyber-pink focus:ring-1 focus:ring-cyber-pink transition-all"></textarea>
+                    </div>
+                    <button type="button" class="btn-cyber-primary w-full py-4 text-center font-bold tracking-widest">
+                        INITIATE TRANSMISSION
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer Global -->
+        <footer class="border-t border-white/10 bg-cyber-darker py-8 mt-auto z-content">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+                <div class="text-2xl font-black font-orbitron tracking-wider text-white mb-4 md:mb-0">
+                    Social Media
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://x.com/Hendroabdh" target="_blank" class="text-[#1DA1F2] hover:opacity-80 transition-opacity hover:-translate-y-1 transform duration-300"><i class="ph-fill ph-twitter-logo text-3xl drop-shadow-[0_0_8px_rgba(29,161,242,0.6)]"></i></a>
+                    <a href="https://discord.com/users/551796569935052830" target="_blank" class="text-[#5865F2] hover:opacity-80 transition-opacity hover:-translate-y-1 transform duration-300"><i class="ph-fill ph-discord-logo text-3xl drop-shadow-[0_0_8px_rgba(88,101,242,0.6)]"></i></a>
+                    <a href="https://t.me/hend199" target="_blank" class="text-[#0088cc] hover:opacity-80 transition-opacity hover:-translate-y-1 transform duration-300"><i class="ph-fill ph-telegram-logo text-3xl drop-shadow-[0_0_8px_rgba(0,136,204,0.6)]"></i></a>
+                    <a href="mailto:hendroabdhh@gmail.com" class="text-[#EA4335] hover:opacity-80 transition-opacity hover:-translate-y-1 transform duration-300"><i class="ph-fill ph-envelope-simple text-3xl drop-shadow-[0_0_8px_rgba(234,67,53,0.6)]"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden bg-black/90 flex items-center justify-center p-4 cursor-zoom-out opacity-0 transition-opacity duration-300">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white hover:text-cyber-pink text-5xl">&times;</button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_30px_rgba(5,217,232,0.5)] transform scale-95 transition-transform duration-300">
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // 1. SPA Routing Logic (Simulate Multi-Page using Hash)
+        function handleRoute() {
+            let hash = window.location.hash.substring(1);
+            if (!hash) hash = 'home'; // default
+            
+            // Valid routes (updated to English names)
+            const validRoutes = ['home', 'album', 'web3', 'trading', 'contact'];
+            if (!validRoutes.includes(hash)) hash = 'home';
+
+            // Hide all pages, show target
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                if (page.id === 'page-' + hash) {
+                    page.classList.remove('hidden');
+                } else {
+                    page.classList.add('hidden');
+                }
+            });
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === '#' + hash) {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-gray-400');
+                } else {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-gray-400');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('hashchange', handleRoute);
+        // Run on initial load
+        handleRoute();
+
+        // 2. Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 3. Navbar Background on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-[0_0_15px_rgba(5,217,232,0.1)]');
+                navbar.style.background = 'rgba(5, 5, 7, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-[0_0_15px_rgba(5,217,232,0.1)]');
+                navbar.style.background = 'rgba(5, 5, 7, 0.85)';
+            }
+        });
+
+        // 4. Album Tab Switching Logic
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                tabContents.forEach(content => content.classList.add('hidden'));
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+
+        // 5. Lightbox Zoom Feature
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.remove('hidden');
+                document.body.classList.add('lightbox-open'); // stop body scroll
+                
+                // Trigger reflow to ensure animation plays
+                void lightbox.offsetWidth; 
+                
+                lightbox.classList.remove('opacity-0');
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+            
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                document.body.classList.remove('lightbox-open');
+                lightboxImg.src = '';
+            }, 300);
+        };
+
+        lightbox.addEventListener('click', closeLightbox);
+        document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+
+
+        // 6. Interactive Canvas Background (Particles + Shuriken)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let shurikens = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Data Particles
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = Math.random() > 0.5 ? '#05d9e8' : '#ff2a6d';
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > width) this.x = 0;
+                if (this.x < 0) this.x = width;
+                if (this.y > height) this.y = 0;
+                if (this.y < 0) this.y = height;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        // Shuriken
+        class Shuriken {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height - height;
+                this.size = Math.random() * 8 + 5;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 0.2 - 0.1;
+                this.opacity = Math.random() * 0.4 + 0.2; 
+                this.color = Math.random() > 0.5 ? '#05d9e8' : '#ff2a6d';
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.angle += this.spin;
+
+                if (this.y > height + 20) {
+                    this.y = -20;
+                    this.x = Math.random() * width;
+                }
+                if (this.x > width + 20) this.x = -20;
+                if (this.x < -20) this.x = width + 20;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                
+                ctx.beginPath();
+                for (let i = 0; i < 4; i++) {
+                    ctx.lineTo(0, -this.size);
+                    ctx.rotate(Math.PI / 4);
+                    ctx.lineTo(0, -this.size / 2);
+                    ctx.rotate(Math.PI / 4);
+                }
+                ctx.closePath();
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size / 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#050507';
+                ctx.fill();
+
+                ctx.restore();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function init() {
+            particles = [];
+            shurikens = [];
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+            for (let i = 0; i < 12; i++) shurikens.push(new Shuriken());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            shurikens.forEach(s => { s.update(); s.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
