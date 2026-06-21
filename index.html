@@ -1,98 +1,200 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HEND | Cyber Japan Portfolio</title>
-
 <style>
-body {
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#050510;
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{
+  font-family:Arial,sans-serif;
+  background:#03040d;
   color:white;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,247,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,47,139,.05) 1px,transparent 1px);
+  background-size:50px 50px;
+  z-index:-3;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%,#ff2f8b33,transparent 35%),
+    radial-gradient(circle at 80% 40%,#00f7ff33,transparent 35%),
+    radial-gradient(circle at center,#1521ff44,transparent 45%);
+  z-index:-2;
 }
 
-.hero {
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:18px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(3,4,13,.75);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #00f7ff33;
+  z-index:1000;
+}
+.logo{
+  font-size:24px;
+  letter-spacing:4px;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:0 0 15px #00f7ff;
+}
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:22px;
+  font-size:14px;
+}
+nav a:hover{color:#00f7ff}
+
+.hero{
   min-height:100vh;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:40px;
+  padding:120px 7% 60px;
+}
+.hero-text{
+  text-align:left;
+}
+.hero h1{
+  font-size:clamp(70px,12vw,150px);
+  letter-spacing:12px;
+  line-height:.9;
+  text-shadow:0 0 30px #00f7ff;
+}
+.hero h1 span{color:#ff2f8b}
+.badge{
+  display:inline-block;
+  margin:25px 0;
+  padding:12px 22px;
+  border:1px solid #ff2f8b;
+  color:#ff2f8b;
+  background:#ff2f8b14;
+  box-shadow:0 0 25px #ff2f8b55;
+}
+.hero p{
+  margin:0;
+  max-width:620px;
+  color:#d8d8ff;
+  line-height:1.8;
+}
+.btns{margin-top:30px}
+.btns a{
+  display:inline-block;
+  margin-right:12px;
+  padding:14px 22px;
+  border-radius:8px;
+  text-decoration:none;
+  color:white;
+  border:1px solid #00f7ff;
+  box-shadow:0 0 20px #00f7ff44;
+}
+.btns a:first-child{
+  background:linear-gradient(135deg,#00f7ff,#ff2f8b);
+  border:none;
+}
+
+.profile-box{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.profile-frame{
+  width:330px;
+  height:430px;
+  border:1px solid #00f7ff;
+  border-radius:28px;
+  background:linear-gradient(180deg,#07162f,#11051d);
+  box-shadow:0 0 60px #00f7ff55;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  padding:30px;
-  background:radial-gradient(circle,#172cff55,#050510 60%);
+  position:relative;
   overflow:hidden;
 }
-
-.hero img {
-  width:180px;
-  height:180px;
+.profile-frame::before{
+  content:"HEND.SYSTEM";
+  position:absolute;
+  top:18px;
+  left:20px;
+  color:#00f7ff;
+  font-size:12px;
+  letter-spacing:2px;
+}
+.profile-frame::after{
+  content:"未来を創る";
+  position:absolute;
+  right:18px;
+  bottom:25px;
+  color:#ff2f8b;
+  writing-mode:vertical-rl;
+  letter-spacing:6px;
+}
+.profile-frame img{
+  width:230px;
+  height:230px;
   object-fit:cover;
   border-radius:50%;
   border:3px solid #00f7ff;
-  box-shadow:0 0 35px #00f7ff;
+  box-shadow:0 0 40px #00f7ff;
+  z-index:2;
 }
 
-h1 {
-  font-size:70px;
-  letter-spacing:8px;
-  color:#fff;
-  text-shadow:0 0 25px #00f7ff;
-}
-
-h2 {
+h2{
   color:#00f7ff;
   text-align:center;
-  margin-top:70px;
+  margin:70px 0 35px;
   font-size:36px;
+  letter-spacing:5px;
+  text-shadow:0 0 20px #00f7ff;
 }
-
-p {
-  color:#ddd;
-  max-width:650px;
-  margin:auto;
-  line-height:1.7;
-}
-
-.badge {
-  color:#ff2f8b;
-  font-weight:bold;
-  margin:20px;
-}
-
-section {
-  padding:40px 7%;
-}
-
-.grid {
+section{padding:50px 7%}
+.grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:24px;
 }
-
-.card {
-  background:#ffffff0d;
+.card{
+  background:rgba(255,255,255,.06);
   border:1px solid #00f7ff55;
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 0 20px #00f7ff22;
-}
-
-.gallery img {
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  border-radius:14px;
-  border:1px solid #ff2f8b66;
+  border-radius:20px;
+  padding:26px;
+  box-shadow:0 0 25px #00f7ff22;
   transition:.3s;
 }
-
-.gallery img:hover {
-  transform:scale(1.04);
-  box-shadow:0 0 30px #ff2f8b;
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 35px #ff2f8b66;
+  border-color:#ff2f8b;
 }
+.card h3{color:#ff2f8b;margin-bottom:12px}
+.card p{color:#ddd;line-height:1.7}
 
-.contact a {
+.gallery img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  border-radius:18px;
+  border:1px solid #00f7ff66;
+  transition:.3s;
+}
+.gallery img:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 35px #00f7ff;
+}
+.contact a{
   display:block;
   color:white;
   text-decoration:none;
@@ -101,134 +203,33 @@ section {
   margin:12px 0;
   border-radius:12px;
 }
-
-.sakura {
+.sakura{
   position:fixed;
-  top:-10px;
-  color:#ff7abf;
+  top:-20px;
+  color:#ff9ccc;
   animation:fall linear infinite;
-  z-index:999;
+  z-index:10;
+  opacity:.75;
+  pointer-events:none;
 }
+@keyframes fall{
+  to{transform:translateY(110vh) translateX(80px) rotate(360deg)}
+}
+footer{text-align:center;padding:30px;color:#aaa}
 
-@keyframes fall {
-  to {
-    transform:translateY(110vh) rotate(360deg);
+@media(max-width:800px){
+  nav{padding:15px 5%}
+  nav div:last-child{display:none}
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding-top:100px;
+  }
+  .hero-text{text-align:center}
+  .hero p{margin:auto}
+  .profile-frame{
+    width:280px;
+    height:360px;
   }
 }
-
-footer {
-  text-align:center;
-  padding:30px;
-  color:#aaa;
-}
 </style>
-</head>
-
-<body>
-
-<div class="hero">
-  <div>
-    <img id="profile" src="">
-    <h1>HEND</h1>
-    <div class="badge">Founder of CryptoPride</div>
-    <p>Web3 Contributor • Artist • Researcher • Trader</p>
-    <p>Cyber Japan personal branding portfolio built to show my identity, contribution, artwork, research, and trading journey.</p>
-  </div>
-</div>
-
-<section>
-  <h2>Identity</h2>
-  <div class="grid">
-    <div class="card"><h3>Founder</h3><p>CryptoPride</p></div>
-    <div class="card"><h3>OG</h3><p>Openverse<br>Deepsafe</p></div>
-    <div class="card"><h3>Artist</h3><p>Endless<br>Portaldot<br>AIX Ledger<br>Deepsafe</p></div>
-    <div class="card"><h3>Trading</h3><p>XAU<br>BTC</p></div>
-  </div>
-</section>
-
-<section>
-  <h2>Portaldot Album</h2>
-  <div class="grid gallery" id="portaldot"></div>
-</section>
-
-<section>
-  <h2>Random Art</h2>
-  <div class="grid gallery" id="randomArt"></div>
-</section>
-
-<section>
-  <h2>Trading Journal</h2>
-  <div class="grid gallery" id="trade"></div>
-</section>
-
-<section>
-  <h2>Contact</h2>
-  <div class="card contact">
-    <a href="https://x.com/Hendroabdh" target="_blank">X / Twitter: @Hendroabdh</a>
-    <a href="https://discord.com/users/551796569935052830" target="_blank">Discord</a>
-    <a href="https://t.me/hend199" target="_blank">Telegram: @hend199</a>
-    <a href="mailto:hendroabdhh@gmail.com">Gmail: hendroabdhh@gmail.com</a>
-  </div>
-</section>
-
-<footer>© 2026 HEND — Cyber Japan Web3 Identity</footer>
-
-<script>
-function raw(url){
-  return url.replace("github.com","raw.githubusercontent.com").replace("/blob/","/");
-}
-
-document.getElementById("profile").src = raw("https://github.com/hendroah/My-Portofolio-/blob/711a431b540e3dfa8b5721b9523d4dfafa2f0c0a/IMG-20260602-WA0080.jpg");
-
-const portaldot = [
-"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Hend_20260509_184830_0000.png",
-"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul70_20260402205438.png",
-"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul75_20260410162711.png",
-"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul77_20260424180413.png",
-"https://github.com/hendroah/My-Portofolio-/blob/6b985fec319f4d5a25f63aea279c69ac29896e74/Portaldot_20260531_123602_0000.png",
-"https://github.com/hendroah/My-Portofolio-/blob/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul125_20260605233218.png",
-"https://github.com/hendroah/My-Portofolio-/blob/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul137_20260613223530.png"
-];
-
-const randomArt = [
-"https://github.com/hendroah/My-Portofolio-/blob/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20251208_004445_0000.png",
-"https://github.com/hendroah/My-Portofolio-/blob/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260117_004234_0000.png",
-"https://github.com/hendroah/My-Portofolio-/blob/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260118_024858_0000.png",
-"https://github.com/hendroah/My-Portofolio-/blob/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul131_20260609223500.png",
-"https://github.com/hendroah/My-Portofolio-/blob/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul84_20260428165542.png"
-];
-
-const trade = [
-"https://github.com/hendroah/My-Portofolio-/blob/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/IMG-20260310-WA0025.jpg",
-"https://github.com/hendroah/My-Portofolio-/blob/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-11-00-59-30-167_com.tradingview.tradingviewapp-edit.jpg",
-"https://github.com/hendroah/My-Portofolio-/blob/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-09-18-00-02-746_com.tradingview.tradingviewapp-edit.jpg",
-"https://github.com/hendroah/My-Portofolio-/blob/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-02-20-16-44-07-715_com.tradingview.tradingviewapp.jpg",
-"https://github.com/hendroah/My-Portofolio-/blob/b1d95230b430504fc0cc80af3933ac2535dd871d/Screenshot_2026-04-01-00-25-50-047_com.tradingview.tradingviewapp.jpg"
-];
-
-function showAlbum(id, data){
-  const box = document.getElementById(id);
-  data.forEach(link => {
-    box.innerHTML += `<img src="${raw(link)}">`;
-  });
-}
-
-showAlbum("portaldot", portaldot);
-showAlbum("randomArt", randomArt);
-showAlbum("trade", trade);
-
-function createSakura(){
-  const s = document.createElement("div");
-  s.className = "sakura";
-  s.innerHTML = "🌸";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.animationDuration = 4 + Math.random() * 6 + "s";
-  s.style.fontSize = 12 + Math.random() * 18 + "px";
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),10000);
-}
-setInterval(createSakura,400);
-</script>
-
-</body>
-</html>h
