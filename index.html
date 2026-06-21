@@ -1,627 +1,234 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hend - Portofolio</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEND | Cyber Japan Portfolio</title>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #13141f;
-            color: #f5f5f5;
-            overflow-x: hidden;
-        }
+<style>
+body {
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#050510;
+  color:white;
+}
 
-        /* --- GLOBAL ANIMATIONS --- */
-        @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-blob { animation: blob 10s infinite alternate; }
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
+.hero {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  background:radial-gradient(circle,#172cff55,#050510 60%);
+  overflow:hidden;
+}
 
-        /* Cyber Profile Glitch/Blink (Lebih Cepat) */
-        @keyframes cyber-glitch-img {
-            0%, 75%, 90%, 100% { filter: contrast(1) brightness(1) hue-rotate(0deg); opacity: 1; }
-            80% { filter: contrast(1.5) brightness(1.4) hue-rotate(45deg); opacity: 0.6; }
-            85% { filter: contrast(1.2) brightness(1.5) hue-rotate(-45deg); opacity: 0.8; }
-        }
-        .animate-cyber-profile {
-            /* Durasi dipercepat dari 4s menjadi 2.5s */
-            animation: float 4s ease-in-out infinite, cyber-glitch-img 2.5s infinite;
-        }
+.hero img {
+  width:180px;
+  height:180px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid #00f7ff;
+  box-shadow:0 0 35px #00f7ff;
+}
 
-        /* Scroll Reveal (Lebih Bouncy) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+h1 {
+  font-size:70px;
+  letter-spacing:8px;
+  color:#fff;
+  text-shadow:0 0 25px #00f7ff;
+}
 
-        /* --- TAMBAHAN ANIMASI SCROLL BARU --- */
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
+h2 {
+  color:#00f7ff;
+  text-align:center;
+  margin-top:70px;
+  font-size:36px;
+}
 
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
+p {
+  color:#ddd;
+  max-width:650px;
+  margin:auto;
+  line-height:1.7;
+}
 
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal-scale.active {
-            opacity: 1;
-            transform: scale(1);
-        }
+.badge {
+  color:#ff2f8b;
+  font-weight:bold;
+  margin:20px;
+}
 
-        @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-startup { animation: fade-in-up 1s ease-out forwards; }
+section {
+  padding:40px 7%;
+}
 
-        /* Background grid pattern global */
-        .bg-grid {
-            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-        }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
 
-        /* --- NEW CYBER ANIMATIONS --- */
-        
-        /* 1. Moving Matrix Grid */
-        .moving-grid {
-            background-image: 
-                linear-gradient(to right, rgba(59, 130, 246, 0.07) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(59, 130, 246, 0.07) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: panGrid 15s linear infinite;
-        }
-        @keyframes panGrid {
-            0% { background-position: 0px 0px; }
-            100% { background-position: 40px 40px; }
-        }
+.card {
+  background:#ffffff0d;
+  border:1px solid #00f7ff55;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 0 20px #00f7ff22;
+}
 
-        /* 2. Cyber Edge Glow Card Effect */
-        .cyber-edge-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 24px;
-            background: rgba(255,255,255,0.05);
-        }
-        .cyber-edge-card::before {
-            content: '';
-            position: absolute;
-            width: 200%; height: 200%;
-            top: -50%; left: -50%;
-            animation: spin 4s linear infinite;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-        }
-        .cyber-edge-card:hover::before {
-            opacity: 1;
-        }
-        
-        /* Specific Glow Colors (Biru, Kuning, Merah) */
-        .glow-blue::before { background: conic-gradient(from 0deg, transparent 70%, rgba(59, 130, 246, 1) 100%); }
-        .glow-yellow::before { background: conic-gradient(from 0deg, transparent 70%, rgba(234, 179, 8, 1) 100%); }
-        .glow-red::before { background: conic-gradient(from 0deg, transparent 70%, rgba(239, 68, 68, 1) 100%); }
+.gallery img {
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:14px;
+  border:1px solid #ff2f8b66;
+  transition:.3s;
+}
 
-        @keyframes spin { 
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); } 
-        }
+.gallery img:hover {
+  transform:scale(1.04);
+  box-shadow:0 0 30px #ff2f8b;
+}
 
-        .cyber-inner {
-            position: relative;
-            z-index: 10;
-            background-color: #191a26; /* Warna card asli */
-            border-radius: 23px; /* Slightly smaller than outer border */
-            height: 100%;
-            transition: background-color 0.3s;
-        }
-        .cyber-edge-card:hover .cyber-inner {
-            background-color: #212233;
-        }
+.contact a {
+  display:block;
+  color:white;
+  text-decoration:none;
+  border:1px solid #00f7ff55;
+  padding:15px;
+  margin:12px 0;
+  border-radius:12px;
+}
 
-        /* Gradient Text (Biru -> Kuning -> Merah) */
-        .text-gradient {
-            background: linear-gradient(to right, #3b82f6, #eab308, #ef4444);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.sakura {
+  position:fixed;
+  top:-10px;
+  color:#ff7abf;
+  animation:fall linear infinite;
+  z-index:999;
+}
 
-        /* --- CYBER HUD CLOCK --- */
-        .cyber-hud-box {
-            position: relative;
-            background: rgba(59, 130, 246, 0.05);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            /* Memotong sudut agar bergaya sci-fi */
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.15);
-        }
-        .cyber-hud-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; bottom: 0;
-            width: 3px;
-            background-color: #3b82f6;
-            box-shadow: 0 0 10px #3b82f6;
-        }
-        .cyber-hud-box::after {
-            content: '';
-            position: absolute;
-            bottom: 0; right: 0;
-            width: 10px; height: 3px;
-            background-color: #3b82f6;
-            box-shadow: 0 0 10px #3b82f6;
-        }
-        .cyber-text-glow {
-            text-shadow: 0 0 8px currentColor;
-        }
-    </style>
+@keyframes fall {
+  to {
+    transform:translateY(110vh) rotate(360deg);
+  }
+}
+
+footer {
+  text-align:center;
+  padding:30px;
+  color:#aaa;
+}
+</style>
 </head>
-<body class="selection:bg-blue-500/30">
 
-    <!-- GLOBAL BACKGROUND (Biru, Kuning, Merah Blobs) -->
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-grid">
-        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] bg-yellow-600/10 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] bg-red-600/10 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-4000"></div>
-    </div>
+<body>
 
-    <div class="relative z-10">
-        <!-- HEADER -->
-        <nav class="sticky top-0 z-40 bg-[#13141f]/80 backdrop-blur-md border-b border-white/5 animate-startup">
-            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-                <div class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-400 via-yellow-400 to-red-400 bg-clip-text text-transparent">
-                    My Portofolio
-                </div>
-                <div class="flex items-center gap-4 md:gap-6">
-                    <div class="hidden md:flex gap-6">
-                        <a href="#about" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">About</a>
-                        <a href="#portfolio" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">Portfolio</a>
-                        <a href="#contact" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">Contact</a>
-                    </div>
-                    <!-- Live Cyber Clock HUD -->
-                    <div class="cyber-hud-box flex items-center gap-2 text-sm md:text-base font-mono font-bold text-blue-400 tracking-widest px-4 py-2 cyber-text-glow">
-                        <i data-lucide="cpu" class="w-4 h-4 animate-pulse"></i>
-                        <span id="cyber-clock">00:00:00 AM</span>
-                    </div>
-                </div>
-            </div>
-        </nav>
+<div class="hero">
+  <div>
+    <img id="profile" src="">
+    <h1>HEND</h1>
+    <div class="badge">Founder of CryptoPride</div>
+    <p>Web3 Contributor • Artist • Researcher • Trader</p>
+    <p>Cyber Japan personal branding portfolio built to show my identity, contribution, artwork, research, and trading journey.</p>
+  </div>
+</div>
 
-        <!-- HERO SECTION -->
-        <section id="about" class="max-w-6xl mx-auto px-6 py-20 md:py-32 flex flex-col-reverse md:flex-row items-center justify-between gap-12 animate-startup" style="animation-delay: 0.2s; opacity: 0;">
-            <div class="flex-1 space-y-6 text-center md:text-left">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-300 text-sm font-medium border border-blue-500/20 backdrop-blur-sm">
-                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
-                    Building & Exploring Web3
-                </div>
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight text-white drop-shadow-lg">
-                    Welcome <br/>
-                    <span class="text-gradient">Hend</span>
-                </h1>
-                
-                <!-- NEW: Colorful Cyber Block for Roles -->
-                <div class="relative p-[2px] bg-gradient-to-r from-blue-500 via-yellow-500 to-red-500 rounded-xl inline-block w-full max-w-xl text-left my-4 shadow-[0_0_20px_rgba(234,179,8,0.15)] group">
-                    <div class="bg-[#13141f] rounded-xl p-6 backdrop-blur-xl relative overflow-hidden h-full">
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-yellow-500/5 to-red-500/10 opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        
-                        <h2 class="text-xl md:text-2xl font-bold text-white uppercase tracking-widest mb-4 relative z-10 flex items-center gap-2">
-                            <i data-lucide="terminal" class="w-5 h-5 text-yellow-400"></i>
-                            Art, Research <span class="text-blue-400">&</span> Trading
-                        </h2>
-                        
-                        <div class="font-mono text-sm md:text-base text-neutral-300 space-y-3 relative z-10">
-                            <p class="flex items-start gap-3">
-                                <span class="text-red-400 font-bold mt-0.5">></span> 
-                                <span>A dedicated <span class="text-blue-400 font-bold">Web3 Contributor</span> & <span class="text-yellow-400 font-bold">Artist</span>.</span>
-                            </p>
-                            <p class="flex items-start gap-3">
-                                <span class="text-yellow-400 font-bold mt-0.5">></span> 
-                                <span>Bridging creative vision with decentralized tech.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-                    <a href="#portfolio" class="bg-white text-black px-8 py-3.5 rounded-xl font-bold hover:bg-blue-50 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                        View My Work
-                    </a>
-                    <a href="#contact" class="bg-white/5 border border-white/10 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-white/10 transition-all backdrop-blur-md">
-                        Let's Connect
-                    </a>
-                </div>
-            </div>
-            
-            <div class="relative">
-                <div class="absolute inset-0 bg-blue-500/30 blur-[80px] rounded-full"></div>
-                <img src="https://raw.githubusercontent.com/hendroah/My-Portofolio-/711a431b540e3dfa8b5721b9523d4dfafa2f0c0a/IMG-20260602-WA0080.jpg" alt="Hend Profile" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-blue-500/30 relative z-10 shadow-[0_0_40px_rgba(59,130,246,0.3)] animate-cyber-profile" />
-            </div>
-        </section>
+<section>
+  <h2>Identity</h2>
+  <div class="grid">
+    <div class="card"><h3>Founder</h3><p>CryptoPride</p></div>
+    <div class="card"><h3>OG</h3><p>Openverse<br>Deepsafe</p></div>
+    <div class="card"><h3>Artist</h3><p>Endless<br>Portaldot<br>AIX Ledger<br>Deepsafe</p></div>
+    <div class="card"><h3>Trading</h3><p>XAU<br>BTC</p></div>
+  </div>
+</section>
 
-        <!-- EXPERIENCE / ROLES SECTION -->
-        <section class="border-y border-white/5 bg-[#0d0e17] relative overflow-hidden">
-            
-            <!-- MOVING CYBER GRID -->
-            <div class="absolute inset-0 moving-grid pointer-events-none opacity-60"></div>
-            
-            <div class="max-w-6xl mx-auto px-6 py-28 relative z-10">
-                <div class="grid md:grid-cols-3 gap-8">
-                    
-                    <!-- WEB3 CYBER CARD (BIRU) -->
-                    <div class="reveal-left cyber-edge-card glow-blue p-[1px] group">
-                        <div class="cyber-inner p-8 flex flex-col h-full">
-                            <div class="animate-float" style="animation-delay: 0s;">
-                                <i data-lucide="monitor-play" class="w-12 h-12 text-blue-400 mb-6 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4 group-hover:text-blue-300 transition-colors">Web3</h3>
-                            <ul class="space-y-4">
-                                <li class="flex flex-col">
-                                    <span class="text-xs text-blue-500/80 uppercase font-bold tracking-widest mb-1">CO-Founder</span>
-                                    <span class="text-white font-medium text-lg">CryptoPride</span>
-                                </li>
-                                <li class="flex flex-col pt-3 border-t border-white/10 group-hover:border-blue-500/30 transition-colors">
-                                    <span class="text-xs text-blue-500/80 uppercase font-bold tracking-widest mb-1">OG</span>
-                                    <span class="text-neutral-300">Openverse</span>
-                                    <span class="text-neutral-300">Deepsafe</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+<section>
+  <h2>Portaldot Album</h2>
+  <div class="grid gallery" id="portaldot"></div>
+</section>
 
-                    <!-- ARTIST CYBER CARD (KUNING) -->
-                    <div class="reveal-scale cyber-edge-card glow-yellow p-[1px] group" style="transition-delay: 100ms;">
-                        <div class="cyber-inner p-8 flex flex-col h-full">
-                            <div class="animate-float" style="animation-delay: 0.5s;">
-                                <i data-lucide="palette" class="w-12 h-12 text-yellow-400 mb-6 drop-shadow-[0_0_8px_rgba(234,179,8,0.5)]"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4 group-hover:text-yellow-300 transition-colors">Artist</h3>
-                            <ul class="space-y-3">
-                                <li class="flex items-center gap-3 text-neutral-300"><i data-lucide="chevron-right" class="w-4 h-4 text-yellow-500"></i> Endless</li>
-                                <li class="flex items-center gap-3 text-neutral-300"><i data-lucide="chevron-right" class="w-4 h-4 text-yellow-500"></i> Portaldot</li>
-                                <li class="flex items-center gap-3 text-neutral-300"><i data-lucide="chevron-right" class="w-4 h-4 text-yellow-500"></i> AIX ledger</li>
-                                <li class="flex items-center gap-3 text-neutral-300"><i data-lucide="chevron-right" class="w-4 h-4 text-yellow-500"></i> Deepsafe</li>
-                            </ul>
-                        </div>
-                    </div>
+<section>
+  <h2>Random Art</h2>
+  <div class="grid gallery" id="randomArt"></div>
+</section>
 
-                    <!-- TRADE CYBER CARD (MERAH) -->
-                    <div class="reveal-right cyber-edge-card glow-red p-[1px] group" style="transition-delay: 200ms;">
-                        <div class="cyber-inner p-8 flex flex-col h-full">
-                            <div class="animate-float" style="animation-delay: 1s;">
-                                <i data-lucide="trending-up" class="w-12 h-12 text-red-400 mb-6 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4 group-hover:text-red-300 transition-colors">Trade</h3>
-                            <p class="text-neutral-400 mb-6 leading-relaxed">Active market participant focusing on high-liquidity assets and technical analysis.</p>
-                            <div class="flex gap-3 mt-auto">
-                                <span class="px-5 py-2.5 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-sm font-bold text-yellow-500 group-hover:border-yellow-500/50 transition-colors">XAU</span>
-                                <span class="px-5 py-2.5 bg-orange-500/10 border border-orange-500/20 rounded-xl text-sm font-bold text-orange-500 group-hover:border-orange-500/50 transition-colors">BTC</span>
-                            </div>
-                        </div>
-                    </div>
+<section>
+  <h2>Trading Journal</h2>
+  <div class="grid gallery" id="trade"></div>
+</section>
 
-                </div>
-            </div>
-        </section>
+<section>
+  <h2>Contact</h2>
+  <div class="card contact">
+    <a href="https://x.com/Hendroabdh" target="_blank">X / Twitter: @Hendroabdh</a>
+    <a href="https://discord.com/users/551796569935052830" target="_blank">Discord</a>
+    <a href="https://t.me/hend199" target="_blank">Telegram: @hend199</a>
+    <a href="mailto:hendroabdhh@gmail.com">Gmail: hendroabdhh@gmail.com</a>
+  </div>
+</section>
 
-        <!-- ALBUMS / PORTFOLIO SECTION -->
-        <section id="portfolio" class="max-w-6xl mx-auto px-6 py-32">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div class="reveal-left">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-3">My Portfolio</h2>
-                    <p class="text-neutral-400 text-lg">A collection of my artwork and trading technical analysis.</p>
-                </div>
-                <!-- TAB Navigation -->
-                <div class="reveal-right flex p-1.5 bg-white/5 border border-white/10 rounded-2xl overflow-hidden self-start md:self-auto w-full md:w-auto backdrop-blur-md">
-                    <button data-tab="portaldot" class="tab-btn flex-1 md:flex-none px-6 py-3 text-sm font-bold rounded-xl transition-all duration-300 bg-blue-500 text-white shadow-lg">Portaldot</button>
-                    <button data-tab="trade" class="tab-btn flex-1 md:flex-none px-6 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-neutral-400 hover:text-white hover:bg-white/5">Trade Charts</button>
-                    <button data-tab="random" class="tab-btn flex-1 md:flex-none px-6 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-neutral-400 hover:text-white hover:bg-white/5">Random Art</button>
-                </div>
-            </div>
+<footer>© 2026 HEND — Cyber Japan Web3 Identity</footer>
 
-            <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[280px]">
-                <!-- Images injected by Javascript -->
-            </div>
-        </section>
+<script>
+function raw(url){
+  return url.replace("github.com","raw.githubusercontent.com").replace("/blob/","/");
+}
 
-        <!-- CONTACT SECTION -->
-        <section id="contact" class="border-t border-white/5 py-32 bg-[#0d0e17]/80 backdrop-blur-sm">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <div class="reveal-scale">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Connect</h2>
-                    <p class="text-neutral-400 mb-12 text-lg max-w-2xl mx-auto">
-                        Interested in collaboration, Web3 projects, or just talking about art and markets? Feel free to reach out across any platform.
-                    </p>
-                </div>
+document.getElementById("profile").src = raw("https://github.com/hendroah/My-Portofolio-/blob/711a431b540e3dfa8b5721b9523d4dfafa2f0c0a/IMG-20260602-WA0080.jpg");
 
-                <div class="flex flex-wrap justify-center gap-4 mb-20">
-                    <a href="https://x.com/Hendroabdh" target="_blank" class="reveal flex items-center gap-3 px-8 py-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-white/30 transition-all group backdrop-blur-md hover:-translate-y-1" style="transition-delay: 50ms;">
-                        <i data-lucide="twitter" class="w-6 h-6 text-neutral-400 group-hover:text-white transition-colors"></i>
-                        <span class="font-bold">Twitter / X</span>
-                        <i data-lucide="external-link" class="w-4 h-4 text-neutral-600 ml-1"></i>
-                    </a>
-                    
-                    <a href="https://discord.com/users/551796569935052830" target="_blank" class="reveal flex items-center gap-3 px-8 py-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-[#5865F2]/10 hover:border-[#5865F2]/50 transition-all group backdrop-blur-md hover:-translate-y-1" style="transition-delay: 100ms;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 127.14 96.36" class="text-neutral-400 group-hover:text-[#5865F2] transition-colors"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
-                        <span class="font-bold">Discord</span>
-                        <i data-lucide="external-link" class="w-4 h-4 text-neutral-600 ml-1"></i>
-                    </a>
+const portaldot = [
+"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Hend_20260509_184830_0000.png",
+"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul70_20260402205438.png",
+"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul75_20260410162711.png",
+"https://github.com/hendroah/My-Portofolio-/blob/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul77_20260424180413.png",
+"https://github.com/hendroah/My-Portofolio-/blob/6b985fec319f4d5a25f63aea279c69ac29896e74/Portaldot_20260531_123602_0000.png",
+"https://github.com/hendroah/My-Portofolio-/blob/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul125_20260605233218.png",
+"https://github.com/hendroah/My-Portofolio-/blob/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul137_20260613223530.png"
+];
 
-                    <a href="https://t.me/hend199" target="_blank" class="reveal flex items-center gap-3 px-8 py-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-[#229ED9]/10 hover:border-[#229ED9]/50 transition-all group backdrop-blur-md hover:-translate-y-1" style="transition-delay: 150ms;">
-                        <i data-lucide="send" class="w-6 h-6 text-neutral-400 group-hover:text-[#229ED9] transition-colors"></i>
-                        <span class="font-bold">Telegram</span>
-                        <i data-lucide="external-link" class="w-4 h-4 text-neutral-600 ml-1"></i>
-                    </a>
+const randomArt = [
+"https://github.com/hendroah/My-Portofolio-/blob/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20251208_004445_0000.png",
+"https://github.com/hendroah/My-Portofolio-/blob/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260117_004234_0000.png",
+"https://github.com/hendroah/My-Portofolio-/blob/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260118_024858_0000.png",
+"https://github.com/hendroah/My-Portofolio-/blob/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul131_20260609223500.png",
+"https://github.com/hendroah/My-Portofolio-/blob/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul84_20260428165542.png"
+];
 
-                    <a href="mailto:hendroabdhh@gmail.com" class="reveal flex items-center gap-3 px-8 py-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-red-500/10 hover:border-red-500/50 transition-all group backdrop-blur-md hover:-translate-y-1" style="transition-delay: 200ms;">
-                        <i data-lucide="mail" class="w-6 h-6 text-neutral-400 group-hover:text-red-400 transition-colors"></i>
-                        <span class="font-bold">Email</span>
-                        <i data-lucide="external-link" class="w-4 h-4 text-neutral-600 ml-1"></i>
-                    </a>
-                </div>
+const trade = [
+"https://github.com/hendroah/My-Portofolio-/blob/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/IMG-20260310-WA0025.jpg",
+"https://github.com/hendroah/My-Portofolio-/blob/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-11-00-59-30-167_com.tradingview.tradingviewapp-edit.jpg",
+"https://github.com/hendroah/My-Portofolio-/blob/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-09-18-00-02-746_com.tradingview.tradingviewapp-edit.jpg",
+"https://github.com/hendroah/My-Portofolio-/blob/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-02-20-16-44-07-715_com.tradingview.tradingviewapp.jpg",
+"https://github.com/hendroah/My-Portofolio-/blob/b1d95230b430504fc0cc80af3933ac2535dd871d/Screenshot_2026-04-01-00-25-50-047_com.tradingview.tradingviewapp.jpg"
+];
 
-                <!-- WALLET ADDRESS BOX -->
-                <div class="reveal bg-gradient-to-b from-white/10 to-transparent p-[1px] rounded-3xl max-w-2xl mx-auto shadow-2xl" style="transition-delay: 300ms;">
-                    <div class="bg-[#13141f] rounded-[23px] p-8 backdrop-blur-xl relative overflow-hidden">
-                        <div class="absolute inset-0 bg-blue-500/5 blur-[50px] pointer-events-none"></div>
-                        <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-4">Web3 Wallet Address</h4>
-                        <div class="flex items-center justify-between bg-black/50 border border-white/10 rounded-2xl p-4 overflow-hidden group">
-                            <code id="wallet-address" class="text-neutral-300 truncate text-lg group-hover:text-white transition-colors">0x2E1FEc334899aa8a2a0D0903662737Ec5755d644</code>
-                            <button id="copy-btn" class="ml-4 p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all flex items-center gap-2 shrink-0 shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:scale-105 active:scale-95">
-                                <i id="copy-icon" data-lucide="copy" class="w-5 h-5"></i>
-                                <span id="copy-text" class="text-sm font-bold hidden sm:inline">Copy</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+function showAlbum(id, data){
+  const box = document.getElementById(id);
+  data.forEach(link => {
+    box.innerHTML += `<img src="${raw(link)}">`;
+  });
+}
 
-        <!-- FOOTER -->
-        <footer class="border-t border-white/5 py-10 text-center text-neutral-500 text-sm">
-            <p>&copy; <span id="year"></span> Hend. All rights reserved.</p>
-        </footer>
-    </div>
+showAlbum("portaldot", portaldot);
+showAlbum("randomArt", randomArt);
+showAlbum("trade", trade);
 
-    <!-- IMAGE MODAL (LIGHTBOX) -->
-    <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden items-center justify-center p-4 cursor-zoom-out opacity-0 transition-opacity duration-300">
-        <button id="close-lightbox" class="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all hover:scale-110">
-            <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
-        <img id="lightbox-img" src="" alt="Fullscreen view" class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/10 transform scale-95 transition-transform duration-300" />
-    </div>
+function createSakura(){
+  const s = document.createElement("div");
+  s.className = "sakura";
+  s.innerHTML = "🌸";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.animationDuration = 4 + Math.random() * 6 + "s";
+  s.style.fontSize = 12 + Math.random() * 18 + "px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),10000);
+}
+setInterval(createSakura,400);
+</script>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('year').textContent = new Date().getFullYear();
-
-            // --- Real-time Cyber Clock Logic ---
-            function updateClock() {
-                const now = new Date();
-                // Mengubah format ke AM/PM (hour12: true) dengan standar Global (en-US)
-                const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-                const clockEl = document.getElementById('cyber-clock');
-                if (clockEl) {
-                    clockEl.textContent = timeString;
-                }
-            }
-            setInterval(updateClock, 1000); 
-            updateClock(); 
-
-            try {
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
-            } catch (e) {
-                console.log("Icons failed to load");
-            }
-
-            const albums = {
-                portaldot: [
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Hend_20260509_184830_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul70_20260402205438.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul75_20260410162711.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/Tak%20berjudul77_20260424180413.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/087a2d53c65b8b8165b98387f1d8cb650033f5a4/%E5%9F%BA%E5%9F%BA%20(1536%20x%202728%20piksel)_20260515_172344_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Portaldot_20260531_123602_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul125_20260605233218.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Tak%20berjudul137_20260613223530.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Untitled111_20260523194304.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/6b985fec319f4d5a25f63aea279c69ac29896e74/Which%20one_20260527_085419_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/f63011b1c28aeef2eebd763af58df55e86f11bd4/Tak%20berjudul69_20260327212438.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/f63011b1c28aeef2eebd763af58df55e86f11bd4/Tak%20berjudul76_Dipulihkan_20260417212349.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/f63011b1c28aeef2eebd763af58df55e86f11bd4/Tak%20berjudul87_20260501191701.png"
-                ],
-                trade: [
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/IMG-20260310-WA0025.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-11-00-59-30-167_com.tradingview.tradingviewapp-edit.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-09-22-58-29-917_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-16-17-30-21-149_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2c3e7bb494b3ae0e2f3744eae64f74c1c351ef9c/Screenshot_2026-03-21-22-02-07-663_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/IMG-20260406-WA0023.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-06-18-28-52-441_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-09-18-00-02-746_com.tradingview.tradingviewapp-edit.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/7a08c74216e2e634663ddb439d10097aefdf006c/Screenshot_2026-04-10-17-04-05-386_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/IMG-20260109-WA0004.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-01-06-17-07-36-271_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-02-20-12-09-25-181_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/42da590c79961256f88e97b0b9be3a5f067fcd51/Screenshot_2026-03-01-02-40-59-542_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/b1d95230b430504fc0cc80af3933ac2535dd871d/IMG_20260331_214134.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/b1d95230b430504fc0cc80af3933ac2535dd871d/Screenshot_2026-03-22-22-36-37-889_com.tradingview.tradingviewapp.jpg",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/b1d95230b430504fc0cc80af3933ac2535dd871d/Screenshot_2026-04-01-00-17-55-131_com.tradingview.tradingviewapp.jpg"
-                ],
-                random: [
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20251208_004445_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260117_004234_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEND_20260118_024858_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/HEN_20251130_201451_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2d22d7d865dd760099ec669b1d6bb241ced30b69/Teks%20paragraf%20Anda_20251117_002712_0000.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul131_20260609223500.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul96_20260509205659.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Tak%20berjudul98_20260507003540.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/2f8ab8e488955dd40bd01d293c2645e691d35081/Untitled120_20260527125032.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul49_20260124204014.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul79_20260422210440.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul84_20260428165542.png",
-                    "https://raw.githubusercontent.com/hendroah/My-Portofolio-/808b3e2ede5f1d35d6c9781301f68a4ba81d32a8/Tak%20berjudul88_20260430231407.png"
-                ]
-            };
-
-            const galleryContainer = document.getElementById('gallery-container');
-            function renderGallery(tabName) {
-                galleryContainer.innerHTML = ''; 
-                
-                albums[tabName].forEach((url, idx) => {
-                    const isLarge = idx === 0 || idx === 7;
-                    const div = document.createElement('div');
-                    div.className = `group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer h-full w-full ${isLarge ? 'col-span-2 row-span-2' : ''}`;
-                    div.style.animation = `fade-in-up 0.5s ease-out ${(idx % 4) * 0.1}s forwards`;
-                    div.style.opacity = '0'; 
-                    
-                    div.innerHTML = `
-                        <img src="${url}" alt="Artwork" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                            <span class="text-white bg-white/10 px-6 py-2.5 rounded-full text-sm font-semibold backdrop-blur-md border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                View Full
-                            </span>
-                        </div>
-                    `;
-                    div.addEventListener('click', () => openLightbox(url));
-                    galleryContainer.appendChild(div);
-                });
-            }
-
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    tabBtns.forEach(b => {
-                        b.classList.remove('bg-blue-500', 'text-white', 'shadow-lg');
-                        b.classList.add('text-neutral-400', 'hover:text-white', 'hover:bg-white/5');
-                    });
-                    e.target.classList.add('bg-blue-500', 'text-white', 'shadow-lg');
-                    e.target.classList.remove('text-neutral-400', 'hover:text-white', 'hover:bg-white/5');
-                    renderGallery(e.target.getAttribute('data-tab'));
-                });
-            });
-
-            renderGallery('portaldot');
-
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const closeBtn = document.getElementById('close-lightbox');
-
-            function openLightbox(url) {
-                lightboxImg.src = url;
-                lightbox.classList.remove('hidden');
-                lightbox.classList.add('flex');
-                setTimeout(() => {
-                    lightbox.classList.remove('opacity-0');
-                    lightboxImg.classList.remove('scale-95');
-                    lightboxImg.classList.add('scale-100');
-                }, 10);
-            }
-
-            function closeLightboxFunc() {
-                lightbox.classList.add('opacity-0');
-                lightboxImg.classList.add('scale-95');
-                lightboxImg.classList.remove('scale-100');
-                setTimeout(() => {
-                    lightbox.classList.add('hidden');
-                    lightbox.classList.remove('flex');
-                    lightboxImg.src = '';
-                }, 300);
-            }
-
-            closeBtn.addEventListener('click', closeLightboxFunc);
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) closeLightboxFunc();
-            });
-
-            const copyBtn = document.getElementById('copy-btn');
-            const copyText = document.getElementById('copy-text');
-            const walletAddress = document.getElementById('wallet-address').innerText;
-
-            if(copyBtn) {
-                copyBtn.addEventListener('click', () => {
-                    navigator.clipboard.writeText(walletAddress).then(() => {
-                        const iconElement = document.getElementById('copy-icon');
-                        if (iconElement) {
-                            iconElement.setAttribute('data-lucide', 'check-circle-2');
-                            if (typeof lucide !== 'undefined') lucide.createIcons();
-                        }
-                        if (copyText) copyText.innerText = 'Copied!';
-                        setTimeout(() => {
-                            if (iconElement) {
-                                iconElement.setAttribute('data-lucide', 'copy');
-                                if (typeof lucide !== 'undefined') lucide.createIcons();
-                            }
-                            if (copyText) copyText.innerText = 'Copy';
-                        }, 2000);
-                    });
-                });
-            }
-
-            const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            // Mendaftarkan class animasi yang baru ke Observer
-            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach((el) => { observer.observe(el); });
-        });
-    </script>
 </body>
-</html>
-
-
-
-
-```
+</html>h
